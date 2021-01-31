@@ -1,9 +1,7 @@
 ﻿using ByteBank.Exceptions;
 using ByteBank.Repository.Interfaces;
-using ByteBank.Response;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using ByteBank.Request;
+using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 
 namespace ByteBank.Service
@@ -11,82 +9,39 @@ namespace ByteBank.Service
     public class ClienteService : IClienteService
     {
         private readonly IClienteRepository _clienteRepository;
-        public ClienteService(IClienteRepository clienteRepository)
+        private readonly IPessoaRepository _pessoaRepository;
+        private readonly ILogger<ClienteService> _logger;
+
+        public ClienteService(IClienteRepository clienteRepository,
+                              ILogger<ClienteService> logger,
+                              IPessoaRepository pessoaRepository)
         {
             _clienteRepository = clienteRepository;
+            _pessoaRepository = pessoaRepository;
+            _logger = logger;
         }
-        /// <summary>
-        /// Busca pessoa pelo código
-        /// </summary>
-        /// <param name="codigoPessoa"></param>
-        /// <returns></returns>
-        public async Task<ClienteReponse> BuscarPessoaPorCodigo(int codigoPessoa)
+
+        public async Task<bool> CriarCliente(CriarClienteRequest clienteRequest)
         {
-            if (codigoPessoa == 0)
+            _logger.LogInformation("Inciando criação de cliente");
+
+            if (clienteRequest == null)
+                throw new ClienteException("Dados do cliente não informado", "Criação do cliente");
+
+            var pessoa = _pessoaRepository.CriarPessoa(new PessoaArgument()
             {
-                throw new ClienteException("Número inválido", "Cliente");
-            }
-            ClienteReponse cliente = (ClienteReponse)await _clienteRepository.BuscarPessoaPorCodigo(codigoPessoa);
-            if (cliente == null)
-            {
-                throw new ClienteException("Cliente não encontrato", "Cliente");
-            }
-            return cliente;
-        }
-        /// <summary>
-        /// Busca todas as pessoas da base
-        /// </summary>
-        /// <returns></returns>
-        public async Task<IEnumerable<ClienteReponse>> BuscarPessoas()
-        {
-            var clientes = await _clienteRepository.BuscarPessoas();
-            IEnumerable<ClienteReponse> x = clientes.Select(x => (ClienteReponse)x);
+                CodigoTipoPessoa = clienteRequest.CodigoTipoPessoa,
+                NomePessoa = clienteRequest.NomePessoa,
+                DataNascimento = clienteRequest.DataNascimento,
+                NumeroCpfCnpj = clienteRequest.NumeroCpfCnpj,
+                Sexo = clienteRequest.Sexo,
+                Email = clienteRequest.Email
 
-            var codigoPessoas = clientes.Where(x => x.CodigoPessoa > 1).ToList();
+            });
 
-            List<string> listaClientes = new List<string>();
-            listaClientes.Add("José");
-            listaClientes.Add("Maria");
-            listaClientes.Add("João");
-            listaClientes.Add("Carlos");
-            listaClientes.Add("José");
+            var cliente = _clienteRepository.CriarCliente(pessoa);
 
-            return x;
-        }
-
-        /// <summary>
-        /// Insere pessoa
-        /// </summary>
-        /// <param name="nome"></param>
-        /// <param name="cpf"></param>
-        /// <param name="sexo"></param>
-        /// <param name="dataNascimento"></param>
-        public void InserirPessoa(string nome, string cpf, string sexo, string dataNascimento, string email)
-        {
-            _clienteRepository.InserirPessoa(nome, cpf, sexo, dataNascimento, email);
-        }
-        /// <summary>
-        /// Limpa a tabela
-        /// </summary>
-        public void LimparTabela()
-        {
-            _clienteRepository.LimparTabela();
-        }
-
-        public int CalcularIdade(DateTime dataNascimento)
-        {
-            int idade = 0;
-            if (dataNascimento < DateTime.Now)
-            {
-                idade = DateTime.Now.Year - dataNascimento.Year;
-
-                if(DateTime.Now.DayOfYear < dataNascimento.DayOfYear)
-                {
-                    idade -= 1;
-                }                
-            }            
-            return idade;
-
+            return cliente > 0;
         }
 
     }

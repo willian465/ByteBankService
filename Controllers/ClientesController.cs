@@ -1,79 +1,46 @@
-﻿using ByteBank.Response;
+﻿using ByteBank.Interface;
+using ByteBank.Request;
 using ByteBank.Service;
-using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 
 namespace ByteBank.Controllers
 {
-    
+
     [Route("api/[controller]")]
     [ApiController]
     public class ClientesController : ControllerBase
     {
         private readonly IClienteService _clienteService;
+        private readonly IPessoaService _pessoaService;
 
-        public ClientesController(IClienteService clienteService)
+        public ClientesController(IClienteService clienteService, IPessoaService pessoaService)
         {
             _clienteService = clienteService;
+            _pessoaService = pessoaService;
         }
 
         /// <summary>
-        /// Método para inserir nova pessoa
+        /// Criar novo cliente
         /// </summary>
-        /// <param name="nome"></param>
-        /// <param name="cpf"></param>
-        /// <param name="sexo"></param>
-        /// <param name="dataNascimento"></param>
+        /// <param name="clienterequest"></param>
         [HttpPost]
-        [Route("inserir")]
-        public void InserirPessoa(string nome, string cpf, string sexo, string dataNascimento, string email)
+        [Route("cliente")]
+        [ProducesResponseType(typeof(bool), 200)]
+        public async Task<ActionResult<bool>> CriarCliente([FromBody] CriarClienteRequest clienterequest)
         {
-            _clienteService.InserirPessoa(nome, cpf, sexo, dataNascimento, email);
+            return Ok(await _clienteService.CriarCliente(clienterequest));
         }
 
-        /// <summary>
-        /// Método para limpar a tabela
-        /// </summary>
-        [HttpDelete]
-        [Route("limpar")]
-        public void Limpar()
-        {
-            _clienteService.LimparTabela();
-        }
-        /// <summary>
-        /// Buscar pessoa por código
-        /// </summary>
-        /// <param name="codigoPessoa"></param>
-        /// <returns></returns>
-        [HttpGet]
-        [Route("buscar")]
-        public async Task<ClienteReponse> BuscarPessoa(int codigoPessoa)
-        {
-            return await _clienteService.BuscarPessoaPorCodigo(codigoPessoa);
-        }
-        /// <summary>
-        /// Buscar todas as pessoas da base
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet]
-        [Route("base")]
-        public async Task<IEnumerable<ClienteReponse>> BuscasPessoas()
-        {
-
-            return await _clienteService.BuscarPessoas();
-
-        }
         [HttpPost]
-        [Route("idade")]
-        public int CalcularIdade(DateTime dataNascimento)
+        [Route("tipo/pessoa")]
+        [ProducesResponseType(typeof(bool), 200)]
+        public async Task<ActionResult<bool>> GerarTipoPessoa(string DescricaoTipoPessoa)
         {
-            return _clienteService.CalcularIdade(dataNascimento);
-
+            return Ok(await _pessoaService.GerarTipoPessoa(DescricaoTipoPessoa));
         }
+
 
     }
 }

@@ -21,7 +21,7 @@ namespace ByteBank
         {
             services.AddControllers();
 
-            services.AddCors(options => 
+            services.AddCors(options =>
             options.AddDefaultPolicy(
                 builder => builder.AllowAnyOrigin()));
 

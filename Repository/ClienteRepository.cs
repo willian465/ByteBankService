@@ -2,7 +2,7 @@
 using ByteBank.Repository.Base;
 using ByteBank.Repository.Interfaces;
 using Dapper;
-using System.Collections.Generic;
+using System;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,71 +11,57 @@ namespace ByteBank.Repository
 {
     public class ClienteRepository : Postgree, IClienteRepository
     {
-        public void InserirPessoa(string nome, string cpf, string sexo, string dataNascimento, string email)
+        public async Task<ClienteModel> BuscarClientePorCodigo(int codigoCliente)
         {
-            string sql = @"INSERT INTO PESSOA (NOME_PESSOA,
-                                               DATA_NASCIMENTO,
-                                               CPF,
-                                               SEXO,
-                                               EMAIL) 
-                                        VALUES(@Nome, @DataNascimento, @Cpf, @Sexo, @Email)";
-
-
-            using (IDbConnection connection = GetConnection())
-
-                connection.ExecuteScalar(sql, new
-                {
-                    Nome = nome,
-                    Cpf = cpf,
-                    Sexo = sexo,
-                    DataNascimento = dataNascimento,
-                    Email = email
-                });
-
-        }
-
-        public async Task<ClienteModel> BuscarPessoaPorCodigo(int codigoPessoa)
-        {
-            string sql = @"SELECT CODIGO_PESSOA CodigoPessoa,                                                            
-                                             NOME_PESSOA NomePessoa,
-                                             DATA_NASCIMENTO DataNascimento,
-                                             CPF CpfPessoa,
-                                             SEXO Sexo,
-                                             EMAIL Email
-                                        FROM PESSOA WHERE CODigo_PESSOA = @CODIGO";
+            const string sql = @"   SELECT C.COD_CLIENTE CodigoCliente, 
+                                           C.COD_PESSOA CodigoPessoa, 
+                                           C.DAT_CADASTRO DataCadastro
+                                      FROM CLIENTE C
+                                     WHERE C.COD_CLIENTE = @CodigoCliente";
 
             using (IDbConnection connection = GetConnection())
             {
                 return (await connection.QueryAsync<ClienteModel>(sql, new
                 {
-                    CODIGO = codigoPessoa
+                    CodigoCliente = codigoCliente
+
                 })).FirstOrDefault();
             }
         }
 
-        public void LimparTabela()
+        public int CriarCliente(int codigoPessoa)
         {
-            string sql = @"DELETE FROM PESSOA";
+
+            try
+            {
+                const string sql = @"INSERT INTO cliente (cod_pessoa)
+                                        VALUES (@CodigoPessoa) 
+                                        returning cod_cliente";
+
+                using (IDbConnection connection = GetConnection())
+                {
+                    int codigoCliente = connection.ExecuteScalar<int>(sql, new { CodigoPessoa = codigoPessoa });
+                    return codigoCliente;
+                }
+
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+
+        }
+
+        public void ExluirCliente(int codigoCliente)
+        {
+            const string sql = @"DELETE FROM CLIENTE C
+                                  WHERE C.COD_CLIENTE = @CodigoCliente";
 
             using (IDbConnection connection = GetConnection())
+            {
+                connection.ExecuteScalarAsync(sql, codigoCliente).ConfigureAwait(false);
 
-                connection.ExecuteScalar(sql);
-        }
-
-        public async Task<IEnumerable<ClienteModel>> BuscarPessoas()
-        {
-            string sql = @"SELECT CODIGO_PESSOA CodigoPessoa,                                                            
-                                  NOME_PESSOA NomePessoa,
-                                  DATA_NASCIMENTO DataNascimento,
-                                  CPF CpfPessoa,
-                                  SEXO Sexo,
-                                  EMAIL Email
-                             FROM PESSOA";
-
-            using IDbConnection connection = GetConnection();
-
-            return await connection.QueryAsync<ClienteModel>(sql);
+            }
         }
     }
-
 }
