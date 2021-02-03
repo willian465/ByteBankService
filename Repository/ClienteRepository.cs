@@ -29,7 +29,7 @@ namespace ByteBank.Repository
             }
         }
 
-        public int CriarCliente(int codigoPessoa)
+        public async Task<int> CriarCliente(int codigoPessoa)
         {
 
             try
@@ -40,7 +40,7 @@ namespace ByteBank.Repository
 
                 using (IDbConnection connection = GetConnection())
                 {
-                    int codigoCliente = connection.ExecuteScalar<int>(sql, new { CodigoPessoa = codigoPessoa });
+                    int codigoCliente = await connection.ExecuteScalarAsync<int>(sql, new { CodigoPessoa = codigoPessoa });
                     return codigoCliente;
                 }
 
