@@ -28,7 +28,11 @@ namespace ByteBank.Service
             if (clienteRequest == null)
                 throw new ClienteException("Dados do cliente não informado", "Criação do cliente");
 
+<<<<<<< HEAD
             var pessoa = await _pessoaRepository.CriarPessoa(new PessoaArgument()
+=======
+            int pessoa = _pessoaRepository.CriarPessoa(new PessoaArgument()
+>>>>>>> b7095d153980843d11aea51f8f5170e332994842
             {
                 CodigoTipoPessoa = clienteRequest.CodigoTipoPessoa,
                 NomePessoa = clienteRequest.NomePessoa,
@@ -37,9 +41,13 @@ namespace ByteBank.Service
                 Sexo = clienteRequest.Sexo,
                 Email = clienteRequest.Email
 
+<<<<<<< HEAD
             }).ConfigureAwait(false);
+=======
+            }).Result;
+>>>>>>> b7095d153980843d11aea51f8f5170e332994842
 
-            var cliente = _clienteRepository.CriarCliente(pessoa);
+            int cliente = await _clienteRepository.CriarCliente(pessoa);
 
             return cliente > 0;
         }
