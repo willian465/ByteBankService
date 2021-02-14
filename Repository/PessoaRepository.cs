@@ -64,10 +64,8 @@ namespace ByteBank.Repository
         /// </summary>
         /// <param name="pessoa"></param>
         /// <returns></returns>
-        public int CriarPessoa(PessoaArgument pessoa)
+        public async Task<int> CriarPessoa(PessoaArgument pessoa)
         {
-
-
             try
             {
                 using (IDbConnection connection = GetConnection())
@@ -83,7 +81,7 @@ namespace ByteBank.Repository
                                          @Sexo, 
                                          @Email) RETURNING COD_PESSOA";
 
-                    int codigoPessoa = connection.ExecuteScalar<int>(sql, pessoa);
+                    int codigoPessoa = await connection.ExecuteScalarAsync<int>(sql, pessoa);
                     return codigoPessoa;
                 }
             }
