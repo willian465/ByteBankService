@@ -81,13 +81,11 @@ namespace ByteBank.Repository
                                          @Sexo, 
                                          @Email) RETURNING COD_PESSOA";
 
-<<<<<<< HEAD
                     int codigoPessoa = await connection.ExecuteScalarAsync<int>(sql, pessoa);
-=======
-                    int codigoPessoa = await connection.ExecuteScalarAsync<int>(sql, pessoa).ConfigureAwait(false);
->>>>>>> b7095d153980843d11aea51f8f5170e332994842
                     return codigoPessoa;
+
                 }
+
             }
             catch (Exception e)
             {

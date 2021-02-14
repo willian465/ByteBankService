@@ -550,23 +550,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\willians\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\willian s\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Projetos\\Estudos\\ByteBankService\\ByteBank.csproj",
+      "projectUniqueName": "D:\\Projetos\\ByteBank\\ByteBank.csproj",
       "projectName": "ByteBank",
-      "projectPath": "C:\\Projetos\\Estudos\\ByteBankService\\ByteBank.csproj",
-      "packagesPath": "C:\\Users\\willians\\.nuget\\packages\\",
-      "outputPath": "C:\\Projetos\\Estudos\\ByteBankService\\obj\\",
+      "projectPath": "D:\\Projetos\\ByteBank\\ByteBank.csproj",
+      "packagesPath": "C:\\Users\\willian s\\.nuget\\packages\\",
+      "outputPath": "D:\\Projetos\\ByteBank\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "C:\\Users\\willians\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\willian s\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -574,7 +570,6 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "https://alm-animaeducacao.pkgs.visualstudio.com/_packaging/animacore/nuget/v3/index.json": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -630,7 +625,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.200\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
       }
     }
   }
