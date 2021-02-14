@@ -27,6 +27,9 @@ namespace ByteBank.Service
 
             if (clienteRequest == null)
                 throw new ClienteException("Dados do cliente não informado", "Criação do cliente");
+            if(clienteRequest.CodigoTipoPessoa == 1)
+                throw new ClienteException("Teste de HTTP", "Criação do cliente");
+
 
             int pessoa = await _pessoaRepository.CriarPessoa(new PessoaArgument()
             {
