@@ -556,11 +556,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Projetos\\Estudos\\ByteBankService\\ByteBank.csproj",
+      "projectUniqueName": "C:\\Projetos\\Estudos\\Studies.ByteBank\\ByteBank.csproj",
       "projectName": "ByteBank",
-      "projectPath": "C:\\Projetos\\Estudos\\ByteBankService\\ByteBank.csproj",
+      "projectPath": "C:\\Projetos\\Estudos\\Studies.ByteBank\\ByteBank.csproj",
       "packagesPath": "C:\\Users\\willians\\.nuget\\packages\\",
-      "outputPath": "C:\\Projetos\\Estudos\\ByteBankService\\obj\\",
+      "outputPath": "C:\\Projetos\\Estudos\\Studies.ByteBank\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
