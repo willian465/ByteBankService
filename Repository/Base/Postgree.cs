@@ -17,14 +17,10 @@ namespace ByteBank.Repository.Base
             }
             catch (Exception e)
             {
-                throw Exception(e.Message, "Erro ao conectar");
+                throw e;
             }
             return dbConnection;
         }
 
-        private Exception Exception(string message, string v)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

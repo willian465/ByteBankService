@@ -4,6 +4,7 @@ using ByteBank.Request;
 using ByteBank.Service;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 
@@ -30,7 +31,6 @@ namespace ByteBank.Controllers
         [HttpPost]
         [Route("cliente")]
         [ProducesResponseType(typeof(bool), 200)]
-        [ProducesResponseType(typeof(ClienteException), StatusCodes.Status409Conflict)]
         public async Task<ActionResult<bool>> CriarCliente([FromBody] CriarClienteRequest clienterequest)
         {
             return Ok(await _clienteService.CriarCliente(clienterequest));
@@ -38,12 +38,16 @@ namespace ByteBank.Controllers
 
         [HttpPost]
         [Route("tipo/pessoa")]
-        [ProducesResponseType(typeof(bool), 200)]
+        [ProducesResponseType(typeof(bool), 200)]        
         public async Task<ActionResult<bool>> GerarTipoPessoa(string DescricaoTipoPessoa)
         {
             return Ok(await _pessoaService.GerarTipoPessoa(DescricaoTipoPessoa));
         }
 
-
+        [HttpPost]
+        [Route("campus")]
+        [ProducesResponseType(typeof(bool), 200)]
+        public async Task<ActionResult<bool>> AtualizarItemNf(List<ItemRequest> itemRequest) =>
+            Ok(await _clienteService.AtualizarItemNf(itemRequest).ConfigureAwait(false));
     }
 }

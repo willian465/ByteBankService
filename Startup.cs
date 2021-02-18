@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using System.Collections.Generic;
 
 namespace ByteBank
 {
@@ -53,13 +54,26 @@ namespace ByteBank
             {
                 endpoints.MapControllers();
             });
+            string routerPrefix = "";
+            app.UseStaticFiles();
+            UseSwagger(app, routerPrefix);
 
-            app.UseSwagger();
 
+        }
+        private void UseSwagger(IApplicationBuilder app, string routerPrefix)
+        {
+            app.UseSwagger(
+                c => c.PreSerializeFilters.Add((swaggerDoc, httpReq) =>
+                {
+                    //s.Paths = routerPrefix;
+                    swaggerDoc.Servers = new List<OpenApiServer> { new OpenApiServer { Url = $"{httpReq.Scheme}://{httpReq.Host.Value}{routerPrefix}" },
+                                                                   new OpenApiServer { Url = $"https://{httpReq.Host.Value}{routerPrefix}" }
+                                                                 };
+
+                }));
             app.UseSwaggerUI(c =>
             {
-
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+                c.SwaggerEndpoint($"{routerPrefix}/swagger/v1/swagger.json", $"{_configuration.GetSection("Application").GetValue<string>("EndpointName")}");
                 c.RoutePrefix = string.Empty;
             });
         }

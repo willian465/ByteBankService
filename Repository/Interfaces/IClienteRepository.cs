@@ -8,6 +8,7 @@ namespace ByteBank.Repository.Interfaces
         Task<ClienteModel> BuscarClientePorCodigo(int codigoCliente);
         Task<int> CriarCliente(int codigoPessoa);
         void ExluirCliente(int codigoCliente);
+        Task AtualizarItemNf(int itemNf, int codigoCampus);
 
 
     }

@@ -63,5 +63,18 @@ namespace ByteBank.Repository
 
             }
         }
+
+        public async Task AtualizarItemNf(int itemNf, int codigoCampus)
+        {
+            const string sql = @"UPDATE campus 
+                                    SET ITEM_NF = @ItemNf
+                                  WHERE COD_CAMPUS = @CodigoCampus";
+
+            using (IDbConnection connection = GetConnection())
+            {
+                await connection.ExecuteAsync(sql, new { ItemNf = itemNf, CodigoCampus = codigoCampus });
+
+            }
+        }
     }
 }
