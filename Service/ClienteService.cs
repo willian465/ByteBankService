@@ -54,7 +54,7 @@ namespace ByteBank.Service
             if (itemRequest == null)
                 throw new ClienteException("Request null");
 
-            var pessoa = await _pessoaRepository.BuscarPessoaPorCodigo(1);
+            Model.PessoaModel pessoa = await _pessoaRepository.BuscarPessoaPorCodigo(1);
 
             try
             {

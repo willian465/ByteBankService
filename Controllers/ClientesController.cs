@@ -1,8 +1,6 @@
-﻿using ByteBank.Exceptions;
-using ByteBank.Interface;
+﻿using ByteBank.Interface;
 using ByteBank.Request;
 using ByteBank.Service;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -38,7 +36,7 @@ namespace ByteBank.Controllers
 
         [HttpPost]
         [Route("tipo/pessoa")]
-        [ProducesResponseType(typeof(bool), 200)]        
+        [ProducesResponseType(typeof(bool), 200)]
         public async Task<ActionResult<bool>> GerarTipoPessoa(string DescricaoTipoPessoa)
         {
             return Ok(await _pessoaService.GerarTipoPessoa(DescricaoTipoPessoa));
