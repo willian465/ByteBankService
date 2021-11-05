@@ -3,7 +3,7 @@
   "profiles": {
     "ByteBank": {
       "commandName": "Project",
-      "launchBrowser": true,
+      "launchBrowser": false,
       "applicationUrl": "https://localhost:8675;",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"

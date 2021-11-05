@@ -1,4 +1,5 @@
 ﻿using ByteBank.Model;
+using ByteBank.Request;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -10,5 +11,6 @@ namespace ByteBank.Repository.Interfaces
         Task<bool> GerarTipoPessoa(string descricaoTipoPessoa);
         Task<IEnumerable<TipoPessoaModel>> BucarTiposPessoa();
         Task<PessoaModel> BuscarPessoaPorCodigo(int codigoPessoa);
+        void BuscarPessoaPorCodigo(ItemRequest temRequest);
     }
 }

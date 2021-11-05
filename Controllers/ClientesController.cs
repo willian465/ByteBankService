@@ -47,5 +47,13 @@ namespace ByteBank.Controllers
         [ProducesResponseType(typeof(bool), 200)]
         public async Task<ActionResult<bool>> AtualizarItemNf(List<ItemRequest> itemRequest) =>
             Ok(await _clienteService.AtualizarItemNf(itemRequest).ConfigureAwait(false));
+
+        [HttpPost]
+        [Route("conta")]
+        [ProducesResponseType(typeof(int), 200)]
+        public async Task<ActionResult<int>> CriarContaBancaria([FromBody] int codigoCliente)
+        {
+            return Ok(await _clienteService.RegistrarContaBancaria(codigoCliente));
+        }
     }
 }

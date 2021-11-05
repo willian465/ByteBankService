@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ByteBankTests-Xunit", "..\B
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ByteBank.Tests", "..\ByteBankTests\ByteBank.Tests.csproj", "{F62B4F17-E6CC-48B2-8208-0377E7A4CD24}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExemploBackgroundService", "..\ExemploBackgroundService\ExemploBackgroundService.csproj", "{C171992D-2EEC-4EE1-8EB0-BCFEC3F4A438}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{F62B4F17-E6CC-48B2-8208-0377E7A4CD24}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F62B4F17-E6CC-48B2-8208-0377E7A4CD24}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F62B4F17-E6CC-48B2-8208-0377E7A4CD24}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C171992D-2EEC-4EE1-8EB0-BCFEC3F4A438}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C171992D-2EEC-4EE1-8EB0-BCFEC3F4A438}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C171992D-2EEC-4EE1-8EB0-BCFEC3F4A438}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C171992D-2EEC-4EE1-8EB0-BCFEC3F4A438}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

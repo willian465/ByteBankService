@@ -26,7 +26,8 @@ namespace ByteBank
             options.AddDefaultPolicy(
                 builder => builder.AllowAnyOrigin()));
 
-            services.Registrar(_configuration);
+            services.RegistrarDependencias(_configuration);
+            services.AddMemoryCache();
 
             services.AddSwaggerGen(c =>
             {

@@ -1,6 +1,7 @@
 ﻿using ByteBank.Model;
 using ByteBank.Repository.Base;
 using ByteBank.Repository.Interfaces;
+using ByteBank.Request;
 using Dapper;
 using System;
 using System.Collections.Generic;
@@ -59,6 +60,12 @@ namespace ByteBank.Repository
                 })).FirstOrDefault();
             }
         }
+
+        public void BuscarPessoaPorCodigo(ItemRequest temRequest)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// Método para criar nova pessoa
         /// </summary>
